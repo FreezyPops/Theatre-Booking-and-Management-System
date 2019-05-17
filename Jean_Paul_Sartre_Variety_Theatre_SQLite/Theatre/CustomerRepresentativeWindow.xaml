@@ -1,0 +1,170 @@
+﻿<Window x:Name="CustomerRepresentative_window" x:Class="Theatre.CustomerRepresentativeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Theatre"
+        mc:Ignorable="d"
+        Title="Customer Representative Window" Height="600" Width="600">
+    <Grid Background="#FF2E8B57">
+        <TabControl Margin="10" BorderBrush="LightSkyBlue" Grid.ColumnSpan="2" Background="#FFF5F5DC" Name="Menu">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
+                                    <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+            <TabItem x:Name="Booking_tab" Header="Booking" Height="20" Width="80">
+                <StackPanel Margin="0,0,0,0">
+                    <StackPanel Orientation="Vertical" Height="340">
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Choose Play:" VerticalAlignment="Top" RenderTransformOrigin="3.255,9.844" Margin="261,20,0,0"/>
+                        <ComboBox x:Name="ChoosePlay_combo" HorizontalAlignment="Left" VerticalAlignment="Top" Width="292" Margin="238,0,0,0" RenderTransformOrigin="0.463,-0.705" SelectionChanged="ComboBox_SelectionChanged" Height="24" DropDownOpened="Choose_Play_Combo_Click"/>
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Choose Date:" VerticalAlignment="Top" RenderTransformOrigin="3.255,9.844" Margin="264,20,0,0"/>
+                        <DatePicker x:Name="SelectDate_Booking" Margin="238,0,208,0" Height="26"/>
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Choose Area:" VerticalAlignment="Top" RenderTransformOrigin="3.255,9.844" Margin="264,20,0,0"/>
+                        <RadioButton x:Name="UpperCircle_radio" Content="Upper Circle" Height="16" Margin="238,0,208,0" Checked="UpperCircle_radio_Checked"/>
+                        <RadioButton x:Name="DressCircle_radio" Content="Dress Circle" Height="16" Margin="238,0,208,0" Checked="DressCircle_radio_Checked"/>
+                        <RadioButton x:Name="Stalls_radio" Content="Stalls" Height="16" Margin="238,0,208,0" Checked="Stalls_radio_Checked"/>
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Choose Seat:" VerticalAlignment="Top" RenderTransformOrigin="3.255,9.844" Margin="267,20,0,0"/>
+                        <ComboBox x:Name="Rows_combo" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" Margin="265,0,0,0" RenderTransformOrigin="0.463,-0.705" SelectionChanged="Row_ComboBox_SelectionChanged" Height="20" IsEditable="True" Text="Rows" />
+                        <ComboBox x:Name="Seat_combo" Margin="266,30,231,0" IsEditable="True" Text="Seats"/>
+                        <Button x:Name="AddToBasket_button" Content="Add to basket" Margin="339,-20,131,0" Height="20" RenderTransformOrigin="0.501,0.5" Click="AddToBasket_button_Click"/>
+                        <Button x:Name="RemoveFromBasket_button" Content="Remove from basket" Margin="435,-20,0,0" Height="20" Click="RemoveFromBasket_button_Click"/>
+
+
+                        <Label x:Name="SeatsRemaining_lbl" Content="(Seats remaining: 0/0)" Margin="358,-130,37,0" Height="28"/>
+                        <DataGrid x:Name="DataGridBasket" Height="248" Margin="0,-230,342.2,0" Background="Beige" SelectionChanged="DataGridBasket_SelectionChanged"/>
+                        <Label Content="Basket list:    (Max. 6 Bookings)" Height="26" Margin="0,-580,342,0"/>
+
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="60">
+                        <TextBlock TextWrapping="Wrap" Text="Customer Surname:" Margin="80,20,0,20" Width="120"/>
+                        <TextBox x:Name="Surname_Booking_txt" TextWrapping="Wrap" Width="200" Margin="0,20"/>
+                        <Button x:Name="SurnameSearch_Booking_button" Content="Search" Width="75" Margin="20,20,0,20" Click="SurnameSearch_Booking_button_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Height="60">
+                        <ComboBox x:Name="Surname_Booking_Combo" Margin="199,0,167,0" Height="20"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Height="60">
+                        <Button x:Name="BookPlay_button" Content="Book Play" Margin="238,0,208,0" RenderTransformOrigin="0.537,2.45" Height="26" Click="BookPlay_button_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+            <TabItem x:Name="ManageBooking_tab" Header="Manage Booking" Height="20" Width="120">
+                <StackPanel Margin="0,0,0,0">
+                    <StackPanel Orientation="Horizontal" Height="100">
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,60,0,0" TextWrapping="Wrap" Text="Customer Surname:" Height="20" Width="120"/>
+                        <TextBox x:Name="Surname_ManageBooking_txt" TextWrapping="Wrap" Width="200" Margin="0,60,0,20"/>
+                        <Button x:Name="SurnameSearch_ManageBooking_button" Content="Search" Width="75" Margin="20,60,0,20" Click="SurnameSearch_ManageBooking_button_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Height="40">
+                        <ComboBox x:Name="Surname_ManageBooking_combo" SelectionChanged ="Customer_Search_SelectionChanged" Margin="170,10,195,0" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Height="200">
+                        <TextBlock TextWrapping="Wrap" Text="Available bookings for selected customer:" Height="20" Margin="50,20,292,0"/>
+                        <DataGrid x:Name="AvailableBookings_DataGrid" Height="145" Background="White" Margin="10,0"/>                        
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="80">
+                        <TextBlock TextWrapping="Wrap" Text="Total Price:" Margin="50,10,0,50" Width="60"/>
+                        <TextBlock x:Name="TotalPriceTextBlock" HorizontalAlignment="Left" Width="120" Margin="20,10,0,50" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="120">
+                        <Button x:Name="MakePayment_button" Content="Make Payment" Margin="100,10,196,84" Width="120" Click="MakePayment_button_Click"/>
+                        <Button x:Name="DeleteBooking_button" Content="Delete Booking" Width="120" Margin="-70,10,0,84" Click="DeleteBooking_button_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+            <TabItem x:Name="AddMember_tab" Header="Add Member" Height="20" Width="100">
+                <StackPanel Margin="0,0,0,0">
+                    <StackPanel Orientation="Vertical" Height="80">
+                        <TextBlock TextWrapping="Wrap" Text="Customer Details:" Height="20" Margin="230,30,230,0" FontWeight="Bold"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="80">
+                        <TextBlock TextWrapping="Wrap" Text="Forename:" Margin="120,20,0,40" Width="70"/>
+                        <TextBox x:Name="Forename_AddMember_txt" TextWrapping="Wrap" Width="200" Margin="0,20,0,40"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="80">
+                        <TextBlock TextWrapping="Wrap" Text="Surname:" Margin="120,20,0,40" Width="70"/>
+                        <TextBox x:Name="Surname_AddMember_txt" TextWrapping="Wrap" Width="200" Margin="0,20,0,40"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="80">
+                        <TextBlock TextWrapping="Wrap" Text="Email:" Margin="120,20,0,40" Width="70"/>
+                        <TextBox x:Name="Email_AddMember_txt" TextWrapping="Wrap" Width="200" Margin="0,20,0,40"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="80">
+                        <TextBlock TextWrapping="Wrap" Text="Join Gold Member Club?" Margin="120,20,0,40" Width="150"/>
+                        <CheckBox x:Name="GoldMember_checkbox" Content="" Margin="0,22,0,40" Width="20"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Height="150">
+                        <Button x:Name="CreateMember_button" Content="Create Member" Margin="236,20,210,0" Height="26" Click="CreateMember_button_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+            <TabItem x:Name="UpgradeMember_tab" Header="Upgrade Member" Height="20" Width="120">
+                <StackPanel Margin="0,0,0,0">
+                    <StackPanel Orientation="Horizontal" Height="120">
+                        <TextBlock TextWrapping="Wrap" Text="Customer Surname:" Margin="80,60,0,40" Width="120"/>
+                        <TextBox x:Name="Surname_UpgradeMember_txt" TextWrapping="Wrap" Width="200" Margin="0,60,0,40"/>
+                        <Button x:Name="SurnameSearch_UpgradeMember_button" Content="Search" Width="75" Margin="20,60,0,40" Click="SurnameSearch_UpgradeMember_buttonClick"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Height="40">
+                        <ComboBox x:Name="SurnameSearch_UpgradeMember_combo" Margin="200,0,166,0" SelectionChanged="SurnameSearch_UpgradeMember_combo_Changed"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="120"/>
+                    <StackPanel Orientation="Horizontal" Height="120"/>
+                    <StackPanel Orientation="Vertical" Height="160">
+                        <Button x:Name="UpgradeMember_button" Content="Upgrade GMC" Margin="224,0,202,0" Height="26" Click="UpgradeMember_button_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+            <TabItem x:Name="EditDeleteMember_tab" Header="Edit/Delete Member" Height="20" Width="140">
+                <StackPanel Margin="0,0,0,0">
+                    <StackPanel Orientation="Horizontal" Height="120">
+                        <TextBlock TextWrapping="Wrap" Text="Customer Surname:" Margin="80,60,0,40" Width="120"/>
+                        <TextBox x:Name="Surname_EditDel_txt" TextWrapping="Wrap" Width="200" Margin="0,60,0,40"/>
+                        <Button x:Name="SurnameSearch_EditDel_button" Content="Search" Width="75" Margin="20,60,0,40" Click="SurnameSearch_EditDel_buttonClick"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Height="40">
+                        <ComboBox x:Name="Surname_EditDel_combo" Margin="200,0,166,0" SelectionChanged="Surname_EditDel_comboSelectionChanged"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="80">
+                        <TextBlock TextWrapping="Wrap" Text="Customer Surname:" Margin="80,48,0,12" Width="120"/>
+                        <TextBox x:Name="Surname2_EditDel_txt" TextWrapping="Wrap" Width="200" Margin="0,48,0,12"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="80">
+                        <TextBlock TextWrapping="Wrap" Text="Customer Forename:" Margin="80,28,0,32" Width="120"/>
+                        <TextBox x:Name="Forename_EditDel_txt" TextWrapping="Wrap" Width="200" Margin="0,28,0,32"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="80">
+                        <TextBlock TextWrapping="Wrap" Text="Customer Email:" Margin="80,8,0,52" Width="120"/>
+                        <TextBox x:Name="Email_EditDel_txt" TextWrapping="Wrap" Width="200" Margin="0,8,0,52"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="160">
+                        <Button x:Name="EditMember_button" Content="Edit Member" Margin="150,0,215,134" Width="100" Click="EditMember_button_Click"/>
+                        <Button x:Name="DeleteMember_button" Content="Delete Member" Width="100" Margin="-180,0,0,134" Click="DeleteMember_button_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+        </TabControl>        
+    </Grid>
+</Window>
